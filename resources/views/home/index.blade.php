@@ -2,8 +2,6 @@
 
 @section('content')
 
-<div class="container">
-
-</div>
+  @livewire('selector')
 
 @endsection

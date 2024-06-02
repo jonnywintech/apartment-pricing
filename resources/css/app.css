@@ -1,0 +1,24 @@
+/* @import './materialize.min.css'; */
+
+nav ul a,
+nav .brand-logo {
+  color: #444;
+}
+
+p {
+  line-height: 2rem;
+}
+
+.sidenav-trigger {
+  color: #26a69a;
+}
+
+
+footer.page-footer {
+    margin: 0;
+  }
+
+
+  .main {
+    min-height: 100vh;
+  }
