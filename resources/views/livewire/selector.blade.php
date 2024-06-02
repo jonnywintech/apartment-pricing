@@ -19,31 +19,40 @@
             date range</a>
     </div>
 
-    <table class="striped highlight responsive-table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Item Name</th>
-                <th>Item Price</th>
-            </tr>
-        </thead>
+    @if (isset($pricing_periods) && count($pricing_periods) > 0)
+    @foreach ($pricing_periods as $pricing_period)
+        <table class="striped highlight responsive-table">
+                <thead>
+                    <tr>
+                        <th>Date from</th>
+                        <th>Date to</th>
+                    </tr>
+                </thead>
 
-        <tbody>
-            <tr>
-                <td>Alvin</td>
-                <td>Eclair</td>
-                <td>$0.87</td>
-            </tr>
-            <tr>
-                <td>Alan</td>
-                <td>Jellybean</td>
-                <td>$3.76</td>
-            </tr>
-            <tr>
-                <td>Jonathan</td>
-                <td>Lollipop</td>
-                <td>$7.00</td>
-            </tr>
-        </tbody>
-    </table>
+                <tbody>
+                    <tr>
+                        <td>{{ $pricing_period->start_date }}</td>
+                        <td>{{ $pricing_period->end_date }}</td>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr>
+                        <th>Room Type</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($pricing_period->roomPrices as $room_price)
+                        <tr>
+                            <td>{{ $room_price->roomType->name }}</td>
+                            <td>{{ $room_price->price }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <hr>
+            @endforeach
+    @else
+        <h3>No Plans found</h3>
+    @endif
 </div>
