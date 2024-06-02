@@ -1,0 +1,12 @@
+.input-symbol-dollar {
+    position: relative;
+}
+.input-symbol-dollar input {
+    padding-left:18px;
+}
+.input-symbol-dollar:before {
+    position: absolute;
+    top: 0;
+    content:"$";
+    left: 5px;
+}
