@@ -2,17 +2,18 @@
     <h1> Pricing Plans</h1>
     <label>Pricing Plans</label>
     <select class="browser-default" wire:model.live="pricing_plan_id">
-        <option value="" disabled selected wire:key="pricing_plan_0">Select pricing plan</option>
+        <option value="" disabled selected>Select pricing plan</option>
         @foreach ($pricing_plans as $pricing_plan)
-            <option wire:key="pricing_plan_{{ $pricing_plan->id }}" value="{{ $pricing_plan->id }}">
-                {{ $pricing_plan->name }}</option>
+            <option value="{{ $pricing_plan->id }}">
+                {{ $pricing_plan->name }}
+            </option>
         @endforeach
     </select>
 
     <div class="row">
         <p>Select pricing plan to begin with, then create date range</p>
         <a class="waves-effect waves-light btn"
-            @if (!isset($pricing_plan_id)) disabled
+            @if ($pricing_plan_id === '') disabled
         @else
         href="{{ route('pricing_period.create', ['id' => $pricing_plan_id]) }}" @endif>Create
             date range</a>

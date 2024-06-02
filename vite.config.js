@@ -7,6 +7,7 @@ export default defineConfig({
             input: [
                 "resources/css/app.css",
                 "resources/js/app.js",
+                "resources/css/pricing_period/create.css",
                 "resources/js/init.js",
             ],
             refresh: true,

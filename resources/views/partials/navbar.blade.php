@@ -1,10 +1,9 @@
 <nav class="white" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="/" class="brand-logo">Logo</a>
+      <a id="logo-container" href="/" class="brand-logo"><i class="material-icons" style="font-size: 50px">hotel</i> Hotel</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="/">Navbar Link</a></li>
       </ul>
-
       <ul id="nav-mobile" class="sidenav">
         <li><a href="/">Navbar Link</a></li>
       </ul>

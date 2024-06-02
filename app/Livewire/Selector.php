@@ -7,7 +7,7 @@ use App\Models\PricingPlan;
 
 class Selector extends Component
 {
-    public $pricing_plan_id;
+    public $pricing_plan_id = '';
 
     public function render()
     {
