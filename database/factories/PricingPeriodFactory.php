@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\PricingPlan;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,12 @@ class PricingPeriodFactory extends Factory
      */
     public function definition(): array
     {
+        $pricing_plan = PricingPlan::inRandomOrder()->first();
+
         return [
-            //
+            'pricing_plan_id' => $pricing_plan,
+            'start_date' => $this->faker->dateTimeBetween(startDate: '-1 years', endDate: 'now'),
+            'end_date' => $this->faker->dateTimeBetween(startDate: 'now', endDate: '+1 years'),
         ];
     }
 }

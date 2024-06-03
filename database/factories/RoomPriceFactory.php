@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\PricingPeriod;
+use App\Models\RoomType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,7 @@ class RoomPriceFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'price' => rand(1, 10000)
         ];
     }
 }

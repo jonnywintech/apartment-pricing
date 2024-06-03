@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\PricingPeriod;
 use App\Models\PricingPlan;
+use App\Models\RoomPrice;
 use App\Models\RoomType;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,12 +19,12 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-/// arrangement type
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
 
+/// arrangement type
         PricingPlan::factory()->create([
             'name' => 'Default prices',
         ]);
@@ -47,5 +49,10 @@ class DatabaseSeeder extends Seeder
         RoomType::factory()->create([
             'name' => 'Deluxe room',
         ]);
+
+
+        PricingPeriod::factory(10)->create();
+
+        $this->call(RoomPriceSeeder::class);
     }
 }
