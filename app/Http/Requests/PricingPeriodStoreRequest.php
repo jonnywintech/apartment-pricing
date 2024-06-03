@@ -32,7 +32,9 @@ class PricingPeriodStoreRequest extends FormRequest
             'start_date' => ['required', 'date'],
             'end_date' => ['required', 'date', 'after_or_equal:start_date'],
             'room_price' => ['required', 'array'],
-            'room_price.*' => ['required', 'numeric', 'min:1'],
+            'room_price.*' => ['required', 'numeric', 'min:1', 'max:9999999999999999999999999999'],
+            'room_type_id' => ['required'],
+            'room_type_id.*'=> ['required'],
         ];
     }
 }

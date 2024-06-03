@@ -8,6 +8,7 @@ use App\Models\RoomPrice;
 use App\Models\PricingPlan;
 use Illuminate\Http\Request;
 use App\Models\PricingPeriod;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\PricingPeriodStoreRequest;
 
 class PricingPeriodController extends Controller
@@ -27,29 +28,40 @@ class PricingPeriodController extends Controller
     public function store(PricingPeriodStoreRequest $request)
     {
 
-        $pricing_data = $request->only('pricing_plan_id', 'start_date', 'end_date');
+        DB::beginTransaction();
 
-        $pricing_data['start_date'] = $this->convertDate($pricing_data['start_date']);
-        $pricing_data['end_date'] = $this->convertDate($pricing_data['end_date']);
+        try {
+            $pricing_data = $request->only('pricing_plan_id', 'start_date', 'end_date');
 
-        $pricing_period = PricingPeriod::create($pricing_data);
+            $pricing_data['start_date'] = $this->convertDate($pricing_data['start_date']);
+            $pricing_data['end_date'] = $this->convertDate($pricing_data['end_date']);
 
-        $room_prices = $request->only('room_price')['room_price'];
+            $pricing_period = PricingPeriod::create($pricing_data);
 
-        for ($i = 0; $i < count($room_prices); $i++) {
+            $room_prices = $request->only('room_price')['room_price'];
+            $room_type_ids = $request->only('room_type_id')['room_type_id'];
 
-            $room_type_id = $i + 1;
+            for ($i = 0; $i < count($room_prices); $i++) {
 
-            $data = [
-                'pricing_period_id' => $pricing_period->id,
-                'room_type_id' => $room_type_id,
-                'price' => $room_prices[$i],
-            ];
+                $room_type_id = $room_type_ids[$i];
 
-            RoomPrice::create($data);
+                $data = [
+                    'pricing_period_id' => $pricing_period->id,
+                    'room_type_id' => $room_type_id,
+                    'price' => $room_prices[$i],
+                ];
+
+                RoomPrice::create($data);
+            }
+
+            DB::commit();
+
+            return redirect()->back()->with('status_message', 'Successfully created pricing plan for selected date.');
+        } catch (\Throwable $th) {
+           DB::rollBack();
+
+           return redirect()->back()->withErrors(['error_message' => 'An error occurred while creating the pricing plan.']);
         }
-
-        return redirect()->back()->with('status_message', 'Successfully created pricing plan for selected date.');
     }
 
     public function convertDate($date)

@@ -30,8 +30,7 @@
         <a class="waves-effect waves-light btn"
             @if ($pricing_plan_id === '') disabled
         @else
-        href="{{ route('pricing_period.create', ['id' => $pricing_plan_id]) }}" @endif>Create
-            date range</a>
+        href="{{ route('pricing_period.create', ['id' => $pricing_plan_id]) }}" @endif>Create Room Prices for selected plan</a>
     </div>
 
     @if (isset($pricing_periods) && count($pricing_periods) > 0)
@@ -102,7 +101,7 @@
                         <div class="input-field col s4 input-icon input-icon-left">
                             <input wire:model="room_prices_ids.{{$i}}" type="hidden" name="room_price_id[]" value="{{ $room_prices_ids[$i] }}">
                             <input wire:model="room_prices.{{$i}}" id="price_update_{{ $room_prices_ids[$i] }}" name="room_price[]"
-                                value="{{ $room_prices[$i] }}" type="number" min="1"
+                                value="{{ $room_prices[$i] }}" type="number" min="1" max="9999999999999999999999999999"
                                 class="validate input-symbol-dollar" required placeholder="300$" step="0.01">
                             <label class="active label__large"
                                 for="price_update_{{ $room_prices_ids[$i] }}">{{ $room_names[$i] }}</label>

@@ -18,7 +18,6 @@ class PricingPlanFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'is_deleted' => 0,
         ];
     }
 }

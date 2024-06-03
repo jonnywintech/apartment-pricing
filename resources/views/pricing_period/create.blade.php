@@ -34,7 +34,8 @@
                 <h3>Set room prices</h3>
                 @foreach ($room_types as $room_type)
                     <div class="input-field col s4 input-icon input-icon-left">
-                        <input id="price_{{$room_type->id}}" name="room_price[]" type="number" min="1" class="validate input-symbol-dollar" required placeholder="300$" step="0.01">
+                        <input name="room_type_id[]" type="hidden" value="{{$room_type->id}}">
+                        <input id="price_{{$room_type->id}}" name="room_price[]" type="number" min="1" max="9999999999999999999999999999" class="validate input-symbol-dollar" required placeholder="300$" step="0.01">
                         <label for="price_{{$room_type->id}}">{{ $room_type->name }}</label>
                         <span class="helper-text" data-error="wrong" data-success="right"></span>
                     </div>

@@ -19,7 +19,8 @@ return new class extends Migration
             $table->foreignId('room_type_id')
                 ->constrained()
                 ->onDelete('cascade');
-            $table->decimal('price');
+            $table->decimal('price',30,2);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
