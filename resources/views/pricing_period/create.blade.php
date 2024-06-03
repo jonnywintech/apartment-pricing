@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container" style="padding:25px;">
+    <div class="container">
         <form action="{{route('pricing_period.store')}}" method="POST" class="create-plan__form">
             @csrf
             <div class="row">

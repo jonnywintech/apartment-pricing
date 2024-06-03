@@ -2,23 +2,112 @@
 
 nav ul a,
 nav .brand-logo {
-  color: #444;
+    color: #444;
 }
 
 p {
-  line-height: 2rem;
+    line-height: 2rem;
 }
 
 .sidenav-trigger {
-  color: #26a69a;
+    color: #26a69a;
 }
-
 
 footer.page-footer {
     margin: 0;
-  }
+}
 
-
-  .main {
+.main {
     min-height: 100vh;
-  }
+}
+
+.alert {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: green;
+    padding: 5px 10px;
+    color: #fff;
+}
+
+.alert-error {
+    background-color: red;
+    margin: 5px;
+}
+
+.alert-success-button {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    transition: 0.3s ease;
+}
+
+.alert-success-button:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    color: red;
+}
+
+.alert-error-button {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    transition: 0.3s ease;
+}
+
+.alert-error-button:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    color: greenyellow;
+}
+
+.label__large {
+    font-size: 18px !important;
+    transform: translateY(-90%) !important;
+}
+
+
+.modal__data {
+    position: fixed;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    left: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal__data--active {
+    display: none;
+}
+
+.modal__data-content {
+    background-color: rgb(236, 236, 236);
+    position: relative;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.close-modal__button {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    color: black;
+    top: 0;
+    right: 0;
+    margin: 5px;
+    font-size: 20px;
+    transition: 0.3s ease;
+    border-radius: 50%;
+}
+
+.close-modal__button:hover {
+    transform: scale(1.05);
+}
+

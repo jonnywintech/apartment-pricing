@@ -49,7 +49,7 @@ class PricingPeriodController extends Controller
             RoomPrice::create($data);
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('status_message', 'Successfully created pricing plan for selected date.');
     }
 
     public function convertDate($date)

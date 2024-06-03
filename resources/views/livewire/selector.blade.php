@@ -1,7 +1,7 @@
 <div class="container row">
     <h1> Pricing Plans</h1>
-    <label>Pricing Plans</label>
-    <select class="browser-default" wire:model.live="pricing_plan_id">
+    <label for="pricing_plans">Pricing Plans</label>
+    <select id=pricing_plans class="browser-default" wire:model.live="pricing_plan_id">
         <option value="" disabled selected>Select pricing plan</option>
         @foreach ($pricing_plans as $pricing_plan)
             <option value="{{ $pricing_plan->id }}">
@@ -20,28 +20,28 @@
     </div>
 
     @if (isset($pricing_periods) && count($pricing_periods) > 0)
-    @foreach ($pricing_periods as $pricing_period)
-        <table class="striped highlight responsive-table">
+        @foreach ($pricing_periods as $pricing_period)
+            <table class="striped highlight responsive-table">
                 <thead>
                     <tr>
                         <th>Date from</th>
                         <th>Date to</th>
                     </tr>
                 </thead>
-
                 <tbody>
                     <tr>
-                        <td>{{ $pricing_period->start_date }}</td>
+                        <td>
+                            <button class="btn modal__trigger"
+                                wire:click="openModal({{ $pricing_period->id }})">{{ $pricing_period->start_date }}</button>
+
+                        </td>
                         <td>{{ $pricing_period->end_date }}</td>
                     </tr>
-                </tbody>
-                <thead>
                     <tr>
                         <th>Room Type</th>
                         <th>Price</th>
                     </tr>
-                </thead>
-                <tbody>
+
                     @foreach ($pricing_period->roomPrices as $room_price)
                         <tr>
                             <td>{{ $room_price->roomType->name }}</td>
@@ -51,8 +51,56 @@
                 </tbody>
             </table>
             <hr>
-            @endforeach
+        @endforeach
     @else
         <h3>No Plans found</h3>
     @endif
+
+    <div class="modal__data {{$pricing_period_modal_id ? '' : 'modal__data--active'}} ">
+        <div class="modal-content modal__data-content">
+            <button class="close-modal__button" wire:click="clearData" onclick="this.parentElement.parentElement.classList.toggle('modal__data--active')">&#x2716;</button>
+            <form method="POST" class="" wire:submit.prevent="save">
+                @csrf
+                <div class="row">
+                    <table class="striped highlight responsive-table">
+                        <thead>
+                            <tr>
+                                <th>Date from</th>
+                                <th>Date to</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    {{ $dates[0] ?? '' }}
+                                </td>
+                                <td>
+                                    {{ $dates[1] ?? '' }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row">
+                    @for ($i = 0; $i < count($room_prices_ids); $i++)
+                        <div class="input-field col s4 input-icon input-icon-left">
+                            <input type="hidden" name="room_price_id[]" value="{{ $room_prices_ids[$i] }}">
+                            <input id="price_{{ $room_prices_ids[$i] }}" name="room_price[]"
+                                value="{{ $room_prices[$i] }}" type="number" min="1"
+                                class="validate input-symbol-dollar" required placeholder="300$" step="0.01">
+                            <label class="active label__large"
+                                for="price_{{ $room_prices_ids[$i] }}">{{ $room_names[$i] }}</label>
+                            <span class="helper-text" data-error="wrong" data-success="right"></span>
+                        </div>
+                    @endfor
+                </div>
+                <div class="row">
+                    <button class="btn waves-effect waves-light" type="submit">Update
+                        <i class="material-icons right">vertical_align_top</i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
