@@ -110,19 +110,22 @@ After that run
 ``` bash 
 sail up -d # or ./vendor/bin/sail up -d     # in case you didn't added terminal alias
 ```
+Generate app key
+```bash
+./vendor/bin/sail php artisan key:generate
+```
 Migrate database and seed data
 ```bash
 ./vendor/bin/sail php artisan migrate:fresh --seed
 ```
-
 ```bash
 ./vendor/bin/sail npm install
-```
-
-```bash
-./vendor/bin/sail npm run dev
 ```
 link storage for icons
 ```bash
 ./vendor/bin/sail php artisan storage:link
 ```
+```bash
+./vendor/bin/sail npm run dev
+```
+
