@@ -1,4 +1,19 @@
 <div class="container row">
+    @if (session('status_message'))
+            <div class="alert alert-success">
+                {{ session('status_message') }}
+                <button class="alert-success-button" onclick="this.parentElement.remove()">&#x2716;</button>
+            </div>
+            <br />
+        @elseif ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-error">
+                    {{ $error }}
+                    <button class="alert-error-button" onclick="this.parentElement.remove()">&#x2716;</button>
+                </div>
+                <br />
+            @endforeach
+        @endif
     <h1> Pricing Plans</h1>
     <label for="pricing_plans">Pricing Plans</label>
     <select id=pricing_plans class="browser-default" wire:model.live="pricing_plan_id">
@@ -59,7 +74,7 @@
     <div class="modal__data {{$pricing_period_modal_id ? '' : 'modal__data--active'}} ">
         <div class="modal-content modal__data-content">
             <button class="close-modal__button" wire:click="clearData" onclick="this.parentElement.parentElement.classList.toggle('modal__data--active')">&#x2716;</button>
-            <form method="POST" class="" wire:submit.prevent="save">
+            <form method="POST" class="" wire:submit.prevent="update">
                 @csrf
                 <div class="row">
                     <table class="striped highlight responsive-table">
@@ -85,12 +100,12 @@
                 <div class="row">
                     @for ($i = 0; $i < count($room_prices_ids); $i++)
                         <div class="input-field col s4 input-icon input-icon-left">
-                            <input type="hidden" name="room_price_id[]" value="{{ $room_prices_ids[$i] }}">
-                            <input id="price_{{ $room_prices_ids[$i] }}" name="room_price[]"
+                            <input wire:model="room_prices_ids.{{$i}}" type="hidden" name="room_price_id[]" value="{{ $room_prices_ids[$i] }}">
+                            <input wire:model="room_prices.{{$i}}" id="price_update_{{ $room_prices_ids[$i] }}" name="room_price[]"
                                 value="{{ $room_prices[$i] }}" type="number" min="1"
                                 class="validate input-symbol-dollar" required placeholder="300$" step="0.01">
                             <label class="active label__large"
-                                for="price_{{ $room_prices_ids[$i] }}">{{ $room_names[$i] }}</label>
+                                for="price_update_{{ $room_prices_ids[$i] }}">{{ $room_names[$i] }}</label>
                             <span class="helper-text" data-error="wrong" data-success="right"></span>
                         </div>
                     @endfor

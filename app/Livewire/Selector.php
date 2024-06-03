@@ -13,7 +13,7 @@ class Selector extends Component
 
     public $pricing_period_modal_id = '';
 
-    // form
+    // form data insert
 
     public $room_names = [];
     public $room_prices_ids = [];
@@ -43,6 +43,23 @@ class Selector extends Component
             array_push($this->room_prices, $room_prices->price);
         }
         // dd($pricing_period_modal);
+    }
+
+    public function update()
+    {
+        if(count($this->room_prices_ids) !== count($this->room_prices) ){
+            return redirect()->back()->with('status_message', 'Please fill all fields');
+        }
+
+        for ($i = 0; $i < count($this->room_prices_ids); $i++) {
+            $room_price = RoomPrice::find($this->room_prices_ids[$i]);
+            $room_price->price = $this->room_prices[$i];
+            $room_price->save();
+        }
+
+        session()->flash('status_message', 'Successfully updated price');
+
+        $this->clearData();
     }
 
     public function render()
