@@ -1,9 +1,5 @@
 @extends('template.app')
 
-@section('vite_head')
-    @vite('resources/css/auth/login.css')
-@endsection
-
 @section('content')
 <div class="container">
     <div class="row form__padding-top">
