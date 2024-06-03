@@ -28,6 +28,7 @@ class PricingPeriodController extends Controller
     public function store(PricingPeriodStoreRequest $request)
     {
 
+
         DB::beginTransaction();
 
         try {
@@ -38,19 +39,15 @@ class PricingPeriodController extends Controller
 
             $pricing_period = PricingPeriod::create($pricing_data);
 
-            $room_prices = $request->only('room_price')['room_price'];
-            $room_type_ids = $request->only('room_type_id')['room_type_id'];
+            $room_prices = $request['room_price'];
+            $room_type_ids = $request['room_type_id'];
 
-            for ($i = 0; $i < count($room_prices); $i++) {
-
-                $room_type_id = $room_type_ids[$i];
-
+            foreach($room_type_ids as $key => $value){
                 $data = [
                     'pricing_period_id' => $pricing_period->id,
-                    'room_type_id' => $room_type_id,
-                    'price' => $room_prices[$i],
+                    'room_type_id' => $value,
+                    'price' => $room_prices[$key],
                 ];
-
                 RoomPrice::create($data);
             }
 

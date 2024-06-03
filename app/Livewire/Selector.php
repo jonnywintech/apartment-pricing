@@ -72,6 +72,18 @@ class Selector extends Component
 
     }
 
+    public function destroy(string $id)
+    {
+        $pricing_period = PricingPeriod::findOrFail($id);
+
+        $room_prices = RoomPrice::findOrFail($pricing_period->id);
+
+        $room_prices->delete();
+        $pricing_period->delete();
+
+        session()->flash('status_message', 'Successfully deleted pricing period');
+    }
+
     public function convertDate($date)
     {
         return Carbon::createFromFormat('Y-m-d', $date)->format('d-m-Y');

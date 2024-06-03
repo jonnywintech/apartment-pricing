@@ -6,15 +6,14 @@
 
 @section('content')
     <div class="container">
-        <form action="{{route('pricing_period.store')}}" method="POST" class="create-plan__form">
+        <form action="{{ route('pricing_period.store') }}" method="POST" class="create-plan__form form__padding-top">
             @csrf
             <div class="row">
                 <div class="col 6">
                     <label for="pricing_plan_id">Select Pricing Plan</label>
                     <select class="browser-default" id="pricing_plan_id" name="pricing_plan_id">
                         @foreach ($pricing_plans as $pricing_plan)
-                            <option value="{{ $pricing_plan->id }}"
-                                @if ($pricing_plan->id == $pricing_plan_id) selected @endif>
+                            <option value="{{ $pricing_plan->id }}" @if ($pricing_plan->id == $pricing_plan_id) selected @endif>
                                 {{ $pricing_plan->name }}</option>
                         @endforeach
                     </select>
@@ -32,19 +31,23 @@
             </div>
             <div class="row text">
                 <h3>Set room prices</h3>
-                @foreach ($room_types as $room_type)
+                @foreach ($room_types as $key => $room_type)
                     <div class="input-field col s4 input-icon input-icon-left">
-                        <input name="room_type_id[]" type="hidden" value="{{$room_type->id}}">
-                        <input id="price_{{$room_type->id}}" name="room_price[]" type="number" min="1" max="9999999999999999999999999999" class="validate input-symbol-dollar" required placeholder="300$" step="0.01">
-                        <label for="price_{{$room_type->id}}">{{ $room_type->name }}</label>
+                        <input name="room_type_id[]" type="hidden" value="{{ $room_type->id }}">
+                        <input id="price_{{ $key }}" name="room_price[{{ $key }}]"
+                            value="{{ old('room_price.' . $key ) ?? '' }}" type="number" min="1"
+                            max="9999999999999999999999999999" class="validate input-symbol-dollar" required
+                            placeholder="300$" step="0.01">
+                        <label for="price_{{ $key }}">{{ $room_type->name }}</label>
                         <span class="helper-text" data-error="wrong" data-success="right"></span>
                     </div>
                 @endforeach
+
             </div>
             <div class="row">
-                <button class="btn waves-effect waves-light" type="submit" name="action">Create
+                <button class="btn waves-effect waves-light green" type="submit" name="action">Create
                     <i class="material-icons right">playlist_add</i>
-                  </button>
+                </button>
             </div>
         </form>
     </div>
