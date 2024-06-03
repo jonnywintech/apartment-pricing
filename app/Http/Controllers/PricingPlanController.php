@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 
 class PricingPlanController extends Controller
 {
-    public function index()
+    public function dashboard()
     {
 
-        return view('home.index');
+        return view('home.dashboard');
     }
 }

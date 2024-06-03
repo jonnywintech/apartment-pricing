@@ -9,6 +9,8 @@ export default defineConfig({
                 "resources/js/app.js",
                 "resources/css/pricing_period/create.css",
                 "resources/js/init.js",
+                "resources/css/auth/login.css",
+                "resources/css/auth/register.css",
             ],
             refresh: true,
         }),

@@ -21,6 +21,10 @@ footer.page-footer {
     min-height: 100vh;
 }
 
+.text-black {
+    color: #000;
+}
+
 .alert {
     position: absolute;
     left: 50%;
@@ -111,3 +115,11 @@ footer.page-footer {
     transform: scale(1.05);
 }
 
+.navbar__item {
+    margin: 0 20px;
+    cursor: default;
+}
+
+.form__padding-top {
+    padding-top: 50px;
+}

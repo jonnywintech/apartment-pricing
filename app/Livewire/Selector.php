@@ -44,7 +44,6 @@ class Selector extends Component
             array_push($this->room_prices_ids, $room_prices->id);
             array_push($this->room_prices, $room_prices->price);
         }
-        // dd($pricing_period_modal);
     }
 
     public function update()
